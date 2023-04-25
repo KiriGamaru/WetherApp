@@ -19,7 +19,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:fontFamily="cursive"
-            android:text="Вторник 25.04.2022"
+            android:text="Tuesday 25.04.2022"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <TextView
-            android:id="@+id/tvTermp"
+            android:id="@+id/tvTemp"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fontFamily="cursive"
