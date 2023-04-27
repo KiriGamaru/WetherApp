@@ -66,7 +66,6 @@ class MainFragment : Fragment() {
         checkPermission()
         init()
         updateCurrentCard()
-        //getLocation()
     }
 
     private fun init() = with(binding){
@@ -125,10 +124,10 @@ class MainFragment : Fragment() {
 
     private fun updateCurrentCard() = with (binding){
         model.livaDataCurrent.observe(viewLifecycleOwner){
-            val maxMinTemp = "${it.maxTemp}°C/${it.minTemp}°C"
+            val maxMinTemp = "${it.maxTemp}°C/${it.minTemp}"
             tvData.text = it.time
             tvCity.text = it.city
-            tvCurrentTemp.text = it.currentTemp.ifEmpty { maxMinTemp }
+            tvCurrentTemp.text = it.currentTemp.ifEmpty { maxMinTemp } + "°C"
             tvCondition.text = it.condition
             tvMaxMin.text = if(it.currentTemp.isEmpty()) "" else maxMinTemp
             Picasso.get().load("https:" + it.imageUrl).into(imgWeather)
@@ -156,7 +155,7 @@ class MainFragment : Fragment() {
                 "&q=" +
                 city +
                 "&days=" +
-                "9" +
+                "3" +
                 "&aqi=no&alerts=no"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
