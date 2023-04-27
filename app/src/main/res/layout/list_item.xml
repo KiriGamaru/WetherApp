@@ -55,7 +55,7 @@
             android:gravity="center"
             android:text="12°C"
             android:textColor="@color/white"
-            android:textSize="34sp"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/im"
             app:layout_constraintStart_toEndOf="@+id/tvDate"

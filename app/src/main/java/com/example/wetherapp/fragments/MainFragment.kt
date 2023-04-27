@@ -14,14 +14,17 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.activityViewModels
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.wetherapp.MainViewModel
 import com.example.wetherapp.R
 import com.example.wetherapp.adapters.VpAdapter
 import com.example.wetherapp.adapters.WeatherModel
 import com.example.wetherapp.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.squareup.picasso.Picasso
 import org.json.JSONObject
 
 const val API_KEY = "fbbbd87bd66b4e90b3d74733222208"
@@ -38,6 +41,7 @@ class MainFragment : Fragment() {
     )
     private lateinit var pLauncher: ActivityResultLauncher<String>
     private lateinit var binding: FragmentMainBinding
+    private val model: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +55,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
         init()
+        updateCurrentCard()
         requestWeatherData("Irkutsk")
     }
 
@@ -61,6 +66,19 @@ class MainFragment : Fragment() {
                 tab, pos -> tab.text = tList[pos]
         }.attach()
 
+    }
+
+    private fun updateCurrentCard() = with (binding){
+        model.livaDataCurrent.observe(viewLifecycleOwner){
+            val maxMinTemp = "${it.maxTemp}°C/${it.minTemp}°C"
+            tvData.text = it.time
+            tvCity.text = it.city
+            tvCurrentTemp.text = it.currentTemp + "°C"
+            tvCondition.text = it.condition
+            tvMaxMin.text = maxMinTemp
+            Picasso.get().load("https:" + it.imageUrl).into(imgWeather)
+
+        }
     }
 
     private fun permissionListener(){
@@ -116,8 +134,7 @@ class MainFragment : Fragment() {
             val item = WeatherModel(
                 name,
                 day.getString("date"),
-                day.getJSONObject("day").getJSONObject("condition")
-                    .getString("text"),
+                day.getJSONObject("day").getJSONObject("condition").getString("text"),
                 "",
                 day.getJSONObject("day").getString("maxtemp_c"),
                 day.getJSONObject("day").getString("mintemp_c"),
@@ -126,6 +143,7 @@ class MainFragment : Fragment() {
             )
             list.add(item)
         }
+        model.livaDataList.value = list
         return list
     }
     private fun parseCurrentData(mainObject: JSONObject, weatherItem: WeatherModel){
@@ -139,15 +157,7 @@ class MainFragment : Fragment() {
             mainObject.getJSONObject("current").getJSONObject("condition").getString("icon"),
             weatherItem.hours
         )
-        Log.d("MyLog", "City: ${item.city}")
-        Log.d("MyLog", "Time: ${item.time}")
-        Log.d("MyLog", "Condition: ${item.condition}")
-        Log.d("MyLog", "Temp: ${item.currentTemp}")
-        Log.d("MyLog", "Url: ${item.imageUrl}")
-
-        Log.d("MyLog", "maxTemp: ${item.maxTemp}")
-        Log.d("MyLog", "minTemp: ${item.minTemp}")
-        Log.d("MyLog", "hours: ${item.hours}")
+        model.livaDataCurrent.value = item
     }
 
     companion object {
