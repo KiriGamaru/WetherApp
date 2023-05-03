@@ -43,11 +43,13 @@ class MainFragment : Fragment() {
     private lateinit var fLocationClient: FusedLocationProviderClient
     private val fList = listOf(
         HoursFragment.newInstance(),
-        DaysFragment.newInstance()
+        DaysFragment.newInstance(),
+        NotesFragment.newInstance()
     )
     private val tList = listOf(
         "Hours",
-        "Days"
+        "Days",
+        "Notes"
     )
     private lateinit var pLauncher: ActivityResultLauncher<String>
     private lateinit var binding: FragmentMainBinding
