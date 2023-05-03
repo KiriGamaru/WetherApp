@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.wetherapp.R
+import com.example.wetherapp.databinding.FragmentNotesBinding
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class NotesFragment : Fragment() {
-
+    private lateinit var binding: FragmentNotesBinding
+    val database = Firebase.database
+    val myRef = database.getReference("message")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notes, container, false)
+        binding = FragmentNotesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     companion object {

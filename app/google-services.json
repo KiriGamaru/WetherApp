@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "734253159417",
+    "firebase_url": "https://notesinwetherapp-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "notesinwetherapp",
+    "storage_bucket": "notesinwetherapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734253159417:android:697f4ff66d4b31f9eae328",
+        "android_client_info": {
+          "package_name": "com.example.wetherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734253159417-v5i81pjl7bkops38bh9q0sl54p53plfn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5WoxS2rZHd29A1bGlkcZtbfSCVN8OQ9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734253159417-v5i81pjl7bkops38bh9q0sl54p53plfn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
