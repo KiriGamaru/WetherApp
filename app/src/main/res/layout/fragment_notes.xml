@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.NotesFragment">
 
-    <TextView
-        android:id="@+id/tvNotes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="cursive"
-        android:text="Note1"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/edNote"
-        app:layout_constraintEnd_toEndOf="@+id/edNote"
-        app:layout_constraintStart_toStartOf="@+id/edNote"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/bSave"
         android:layout_width="0dp"
@@ -28,17 +14,26 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Save"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/edNote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:ems="10"
-        android:fontFamily="cursive"
         android:hint="Note"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/bSave"
