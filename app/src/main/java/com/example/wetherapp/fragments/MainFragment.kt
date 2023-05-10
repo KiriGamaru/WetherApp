@@ -20,6 +20,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -123,7 +125,6 @@ class MainFragment : Fragment() {
             }
     }
 
-
     private fun updateCurrentCard() = with (binding){
         model.livaDataCurrent.observe(viewLifecycleOwner){
             val maxMinTemp = "${it.maxTemp}°C/${it.minTemp}"
@@ -133,6 +134,14 @@ class MainFragment : Fragment() {
             tvCondition.text = it.condition
             tvMaxMin.text = if(it.currentTemp.isEmpty()) "" else maxMinTemp
             Picasso.get().load("https:" + it.imageUrl).into(imgWeather)
+
+            val value = tvData.text
+            if (value.length == 10) {
+                setValue("00")
+            }
+            else{
+                setValue(value.toString().substring(11, 13))
+            }
 
         }
     }
@@ -219,5 +228,14 @@ class MainFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = MainFragment()
+
+    }
+    //binding.tvData.text.toString().substring(11, 13).toInt()
+    class SharedViewModel : ViewModel() {
+        val hours = MutableLiveData<String>()
+    }
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private fun setValue(value: String) {
+        sharedViewModel.hours.value = value
     }
 }

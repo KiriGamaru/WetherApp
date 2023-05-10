@@ -16,7 +16,10 @@ import com.example.wetherapp.databinding.FragmentHoursBinding
 import org.json.JSONArray
 import org.json.JSONObject
 
+import java.util.Calendar
+
 class HoursFragment : Fragment() {
+    //private lateinit var hours: String
     private lateinit var binding: FragmentHoursBinding
     private lateinit var adapter: WeatherAdapter
     private val model: MainViewModel by activityViewModels()
@@ -36,17 +39,29 @@ class HoursFragment : Fragment() {
             adapter.submitList(getHoursList(it))
         }
     }
+    //private lateinit var layoutManager: LinearLayoutManager
+    //layoutManager.scrollToPosition(10)\
+    //layoutManager.scrollToPositionWithOffset(10, 0)
     private fun initRcView() = with(binding){
         rcView.layoutManager = LinearLayoutManager(activity)
         adapter = WeatherAdapter(null)
         rcView.adapter = adapter
-
+        //(rcView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(10,0)
     }
 
+
+    private val sharedViewModel: MainFragment.SharedViewModel by activityViewModels()
     private fun getHoursList(wItem: WeatherModel): List<WeatherModel>{
         val hoursArray = JSONArray(wItem.hours)
         val list = ArrayList<WeatherModel>()
-        for(i in 0 until hoursArray.length()){
+
+        //val calendar = Calendar.getInstance()
+        //val hour = calendar.get(Calendar.HOUR_OF_DAY)
+
+        val hours = sharedViewModel.hours.value.toString().toInt()
+
+
+        for(i in hours until hoursArray.length()){
             val item = WeatherModel(
                 wItem.city,
                 (hoursArray[i] as JSONObject).getString("time").substring(11),
